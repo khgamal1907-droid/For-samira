@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>إلى سميرة.. وتين قلبي</title>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0d0b11;
+      --card-bg: rgba(26, 20, 35, 0.85);
+      --accent: #d4af37;
+      --pink: #d946ef;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      direction: rtl;
+      padding: 20px 15px 60px;
+      background-image: radial-gradient(circle at 50% 20%, #2e1065 0%, #0d0b11 70%);
+    }
+    .container { max-width: 500px; width: 100%; text-align: center; }
+    .title { font-family: 'Amiri', serif; font-size: 2rem; color: var(--accent); margin-top: 15px; margin-bottom: 5px; }
+    .subtitle { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px; }
+    .image-container {
+      width: 170px; height: 170px; margin: 0 auto 15px; border-radius: 50%; padding: 4px;
+      background: linear-gradient(135deg, var(--accent), var(--pink)); cursor: pointer;
+      box-shadow: 0 0 25px rgba(217, 70, 239, 0.4);
+    }
+    .image-container img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: block; }
+    .timer-card {
+      background: var(--card-bg); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 16px;
+      padding: 15px; margin-bottom: 20px;
+    }
+    .timer-label { font-size: 0.85rem; color: var(--accent); margin-bottom: 12px; }
+    .timer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+    .timer-box { background: rgba(255, 255, 255, 0.05); border-radius: 10px; padding: 8px 4px; }
+    .timer-num { font-size: 1.3rem; font-weight: 700; color: #fff; display: block; }
+    .timer-txt { font-size: 0.7rem; color: var(--text-muted); }
+    .music-player {
+      background: var(--card-bg); border-radius: 30px; padding: 10px 20px; display: inline-flex;
+      align-items: center; gap: 12px; border: 1px solid rgba(217, 70, 239, 0.4); margin-bottom: 25px; cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+    .music-btn {
+      width: 36px; height: 36px; border-radius: 50%; background: var(--accent); display: flex;
+      align-items: center; justify-content: center; border: none; font-size: 1rem; color: #000;
+    }
+    .song-title { font-size: 0.85rem; }
+    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .feature-card {
+      background: var(--card-bg); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 14px;
+      padding: 15px 5px; cursor: pointer;
+    }
+    .feature-icon { font-size: 1.6rem; margin-bottom: 5px; display: block; }
+    .feature-name { font-size: 0.85rem; font-weight: 600; }
+    .modal {
+      display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.75);
+      z-index: 100; align-items: center; justify-content: center; padding: 20px;
+    }
+    .modal.active { display: flex; }
+    .modal-content {
+      background: #171221; border: 1px solid var(--accent); border-radius: 18px;
+      max-width: 350px; width: 100%; padding: 20px; text-align: center; position: relative;
+    }
+    .modal-close { position: absolute; top: 10px; left: 10px; background: none; border: none; color: var(--text-muted); font-size: 1.2rem; cursor: pointer; }
+    .modal-title { color: var(--accent); font-size: 1.2rem; margin-bottom: 10px; font-family: 'Amiri', serif; }
+    .modal-text { color: #e5e7eb; font-size: 0.9rem; line-height: 1.7; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="image-container" onclick="openMsg('حبيبتي سميرة', 'كل لحظة معاكي بتفكرني إن ربنا رزقني بأغلى هدية في حياتي.')">
+      <img src="temp_image_74D8A7CB-D571-4AFA-8C01-6439A6ADCADC.jpeg" alt="سميرة">
+    </div>
+
+    <h1 class="title">إلى حبيبتي سميرة</h1>
+    <p class="subtitle">بداية حكايتنا وأجمل أقداري</p>
+
+    <div class="timer-card">
+      <div class="timer-label">الوقت منذ أن بدأت نبضاتي باسمك (13/9/2025)</div>
+      <div class="timer-grid">
+        <div class="timer-box"><span class="timer-num" id="days">0</span><span class="timer-txt">يوم</span></div>
+        <div class="timer-box"><span class="timer-num" id="hours">0</span><span class="timer-txt">ساعة</span></div>
+        <div class="timer-box"><span class="timer-num" id="minutes">0</span><span class="timer-txt">دقيقة</span></div>
+        <div class="timer-box"><span class="timer-num" id="seconds">0</span><span class="timer-txt">ثانية</span></div>
+      </div>
+    </div>
+
+    <!-- مشغل الموسيقى برابط مباشر شغال فوراً -->
+    <div class="music-player" onclick="toggleAudio()">
+      <button class="music-btn" id="playBtn">▶</button>
+      <div class="song-title">تامر عاشور - خليكي في حضني 🎵</div>
+      <audio id="directAudio" loop preload="auto">
+        <source src="https://ia800108.us.archive.org/17/items/khaliki-fi-hodni/khaliki.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card" onclick="openMsg('عينيها ✨', 'في عيونك أمان ما لقيتهوش في الدنيا كلها.. نظرة واحدة منك كفاية تطمن روحي وتهدّي أي خوف.')">
+        <span class="feature-icon">👀</span>
+        <div class="feature-name">عينيها</div>
+      </div>
+
+      <div class="feature-card" onclick="openMsg('ضحكتها 🌸', 'ضحكتك دي هي العيد بتاعي، كأن الدنيا كلها بتفرَح لمّا تبتسمي، بتنوري كل عتمة في قلبي.')">
+        <span class="feature-icon">✨</span>
+        <div class="feature-name">ضحكتها</div>
+      </div>
+
+      <div class="feature-card" onclick="openMsg('زعلها 🥺', 'زعلك بيهدّ حيل الدنيا في عيني.. رضاكي غالي وما يهونش عليا أبداً، وحضني ديماً ملاذك وأول مكان تلجأي ليه.')">
+        <span class="feature-icon">❤️</span>
+        <div class="feature-name">زعلها</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="modal" onclick="closeModal(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeModalDirect()">&times;</button>
+      <h3 class="modal-title" id="modalTitle"></h3>
+      <p class="modal-text" id="modalText"></p>
+    </div>
+  </div>
+
+  <script>
+    const startDate = new Date(2025, 8, 13, 12, 30, 0).getTime();
+
+    function updateTimer() {
+      const now = new Date().getTime();
+      let diff = Math.abs(now - startDate);
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % 1000) / 1000);
+
+      document.getElementById('days').innerText = days;
+      document.getElementById('hours').innerText = hours;
+      document.getElementById('minutes').innerText = minutes;
+      document.getElementById('seconds').innerText = seconds;
+    }
+
+    setInterval(updateTimer, 1000);
+    updateTimer();
+
+    const audio = document.getElementById('directAudio');
+    const playBtn = document.getElementById('playBtn');
+
+    function toggleAudio() {
+      if (audio.paused) {
+        audio.play().then(() => {
+          playBtn.innerText = '⏸';
+        }).catch(err => {
+          console.log(err);
+        });
+      } else {
+        audio.pause();
+        playBtn.innerText = '▶';
+      }
+    }
+
+    const modal = document.getElementById('modal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalText = document.getElementById('modalText');
+
+    function openMsg(title, text) {
+      modalTitle.innerText = title;
+      modalText.innerText = text;
+      modal.classList.add('active');
+    }
+
+    function closeModalDirect() {
+      modal.classList.remove('active');
+    }
+
+    function closeModal(e) {
+      if (e.target === modal) {
+        modal.classList.remove('active');
+      }
+    }
+  </script>
+</body>
+</html>
